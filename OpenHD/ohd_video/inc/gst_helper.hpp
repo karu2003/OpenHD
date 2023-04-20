@@ -467,9 +467,15 @@ static std::string createAllwinnerSensorPipeline(const int sensor_id,const int w
 static std::string createAllwinnerEncoderPipeline(const CommonEncoderParams& common_encoder_params){
   std::stringstream ss;
     assert(common_encoder_params.videoCodec==VideoCodec::H264);
-    // ss << "cedar_h264enc bitrate=" << common_encoder_params.h26X_bitrate_kbits <<
-    // " keyint=" << common_encoder_params.h26X_keyframe_interval << " !  video/x-h264 ! ";
-    ss << "cedar_h264enc !  video/x-h264 ! ";
+    // if(platform.board_type == BoardType::BananaPiM2Z){
+    if(1){  
+      ss << "cedar_h264enc !  video/x-h264 ! ";
+    } else {
+      ss << "cedar_h264enc bitrate=" << common_encoder_params.h26X_bitrate_kbits <<
+      " keyint=" << common_encoder_params.h26X_keyframe_interval << " !  video/x-h264 ! ";
+    }
+
+    
   return ss.str();
 }
 
